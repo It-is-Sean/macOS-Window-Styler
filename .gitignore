@@ -1,0 +1,22 @@
+.DS_Store
+
+# Xcode user state
+*.xcuserstate
+*.xcscmblueprint
+*.moved-aside
+*.xccheckout
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# Build output
+DerivedData/
+build/
+*.app
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# App archives and debug symbols
+*.xcarchive
+*.dSYM

@@ -24,8 +24,24 @@ struct macOS_Window_StylerApp: App {
     }()
 
     var body: some Scene {
-        WindowGroup {
+        Window("macOS Window Styler", id: "main") {
             ContentView()
+                // .environmentObject(model)
+                .frame(minWidth: 720, minHeight: 520)
+                //onAppear {
+                //    model.load()
+                //}
+        }
+        .windowResizability(.contentMinSize)
+        .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About macOS Window Styler") {
+                    NSApp.orderFrontStandardAboutPanel(options: [
+                        .applicationName: "macOS Window Styler",
+                        .version: "1.0"
+                    ])
+                }
+            }
         }
         .modelContainer(sharedModelContainer)
     }
