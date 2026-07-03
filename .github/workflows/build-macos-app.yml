@@ -56,6 +56,12 @@ jobs:
           fi
           echo "AppIcon.icns present ✅"
 
+      - name: Ad-hoc sign app
+        run: |
+          APP="build/DerivedData/Build/Products/Release/macOS Window Styler.app"
+          codesign --force --deep --sign - "${APP}"
+          codesign --verify --deep --strict --verbose=2 "${APP}"
+
       - name: Package app
         run: |
           mkdir -p build/artifacts
