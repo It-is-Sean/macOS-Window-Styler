@@ -2,7 +2,8 @@ name: Build macOS App
 
 on:
   push:
-    branches: [main, master]
+    tags:
+      - "v*"
   workflow_dispatch:
 
 jobs:
