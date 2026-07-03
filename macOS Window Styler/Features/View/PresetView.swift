@@ -32,13 +32,13 @@ struct PresetView: View {
                 
                 VStack(alignment: .leading){
                     Text("Preview:").font(.body).foregroundStyle(.secondary).bold()
-                        Image(selectedItem?.image ?? "preset_macos_bigsur")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxHeight: 400)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.secondary)
-                    }
+                    Image(selectedItem?.image ?? "preset_macos_bigsur")
+                        .resizable()
+                        .scaledToFit()
+                        //.frame(maxWidth: .infinity, maxHeight: 400)
+                        .background(.clear)
+                        .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                }
             }
             HStack{
                 Button(action: {
