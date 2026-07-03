@@ -5,6 +5,24 @@
 //  Created by Sean on 2026/7/3.
 //
 import Foundation
+
+func logout() {
+    let script = """
+    tell application "System Events"
+        log out
+    end tell
+    """
+
+    var error: NSDictionary?
+    if let appleScript = NSAppleScript(source: script) {
+        appleScript.executeAndReturnError(&error)
+
+        if let error {
+            print("Logout failed: \(error)")
+        }
+    }
+}
+
 struct WindowPresetItem: Identifiable, Hashable {
     let id = UUID()
     let name: String

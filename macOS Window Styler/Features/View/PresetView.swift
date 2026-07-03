@@ -14,6 +14,7 @@ struct PresetView: View {
         WindowPresetItem(name: "macOS 26 Tahoe", image: "preset_macos_tahoe", windowCornerRadious: 26,sidebarCornerRadious: 19,enableFloatSidebar: true),
     ]
     @State private var selectedID: WindowPresetItem.ID? = nil
+    @State private var showLogoutAlert = false
     var selectedItem: WindowPresetItem? {
         allItems.first {$0.id == selectedID}
     }
@@ -43,17 +44,39 @@ struct PresetView: View {
                 Button(action: {
                     print("Reset")
                     DefaultsApplier.resetAll()
+                    showLogoutAlert = true
                 }){
                     Text("Reset")
                 }.buttonStyle(.automatic)
+                .alert("Changes Applied", isPresented: $showLogoutAlert) {
+                        HStack{
+                            Button("Logout Later", role: .cancel) {}
+                            Button("Logout"){
+                                logout()
+                            }
+                        }
+                    } message: {
+                        Text("Log out to apply the change.")
+                    }
                 Button(action: {
-                    print("Add tapped")
+                    print("Applied")
                     DefaultsApplier.applyPreset(selectedItem ?? WindowPresetItem(name: "macOS 26 Tahoe", image: "preset_macos_tahoe", windowCornerRadious: 26,sidebarCornerRadious: 19,enableFloatSidebar: true))
+                    showLogoutAlert = true
                 }) {
                     HStack {
                         Image(systemName: "wand.and.stars")
                         Text("Apply")
                             .font(.headline)
+                    }
+                    .alert("Reset Successful", isPresented: $showLogoutAlert) {
+                        HStack{
+                            Button("Logout Later", role: .cancel) {}
+                            Button("Logout"){
+                                logout()
+                            }
+                        }
+                    } message: {
+                        Text("Log out to apply the change.")
                     }
                     
                     

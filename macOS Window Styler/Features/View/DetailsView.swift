@@ -14,6 +14,8 @@ struct DetailView: View {
 
     @State private var detailedSetting = detailedSettingItem(windowCornerRadious: 26, sidebarCornerRadious: 19, enableFloatSidebar: true)
 
+    @State private var showLogoutAlert = false
+
     var body: some View{
         VStack(alignment: .trailing, spacing: 14){
             VStack{
@@ -25,7 +27,7 @@ struct DetailView: View {
                             Slider(value: Binding(
                                 get: {Double(detailedSetting.windowCornerRadious)},
                                 set: {detailedSetting.windowCornerRadious  = Int($0)}),
-                                   in: 0...30)
+                                   in: 1...30)
                             Text("\(detailedSetting.windowCornerRadious)")
                                 .font(.title2.monospacedDigit()).bold().foregroundStyle(.secondary)
                                 .frame(width: 34, alignment: .center)
@@ -51,7 +53,7 @@ struct DetailView: View {
                             Slider(value: Binding(
                                 get: {Double(detailedSetting.sidebarCornerRadious)},
                                 set: {detailedSetting.sidebarCornerRadious  = Int($0)}),
-                                   in: 0...30)
+                                   in: 1...30)
                             Text("\(detailedSetting.sidebarCornerRadious)")
                                 .font(.title2.monospacedDigit()).bold().foregroundStyle(.secondary)
                                 .frame(width: 34, alignment: .center)
@@ -70,12 +72,27 @@ struct DetailView: View {
             HStack{
                 Button(action: {
                     detailedSetting = defaultDetailedSetting
+                    DefaultsApplier.applyDetail(detailedSetting)
+                    showLogoutAlert = true
+
                 }){
                     Text("Reset")
-                    
-                }.buttonStyle(.automatic)
+                }
+                .buttonStyle(.automatic)
+                .alert("Reset Successful", isPresented: $showLogoutAlert) {
+                    HStack{
+                        Button("Logout Later", role: .cancel) {}
+                        Button("Logout"){
+                            logout()
+                        }
+                    }
+                } message: {
+                    Text("Log out to apply the change.")
+                }
                 Button(action: {
                     print("Applied")
+                    DefaultsApplier.applyDetail(detailedSetting)
+                    showLogoutAlert = true
                 }) {
                     HStack {
                         Image(systemName: "wand.and.stars")
@@ -88,7 +105,18 @@ struct DetailView: View {
                     //.background(Color.blue)
                     //.cornerRadius(10)
                     
-                }            .buttonStyle(.borderedProminent)
+                }
+                .buttonStyle(.borderedProminent)
+                .alert("Changes Saved!", isPresented: $showLogoutAlert) {
+                    HStack{
+                        Button("Logout Later", role: .cancel) {}
+                        Button("Logout"){
+                            logout()
+                        }
+                    }
+                } message: {
+                    Text("Log out to apply the change.")
+                }
                     
             }
             .buttonStyle(.borderedProminent)
