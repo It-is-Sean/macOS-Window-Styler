@@ -1,0 +1,43 @@
+name: Build macOS App
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Release App
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build
+        run: |
+          xcodebuild \
+            -project "macOS Window Styler.xcodeproj" \
+            -scheme "macOS Window Styler" \
+            -configuration Release \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+
+      - name: Package app
+        run: |
+          mkdir -p build/artifacts
+          ditto -c -k --keepParent \
+            "build/DerivedData/Build/Products/Release/macOS Window Styler.app" \
+            "build/artifacts/macOS-Window-Styler-unsigned.zip"
+
+      - name: Upload app
+        uses: actions/upload-artifact@v4
+        with:
+          name: macOS-Window-Styler-unsigned
+          path: build/artifacts/macOS-Window-Styler-unsigned.zip
