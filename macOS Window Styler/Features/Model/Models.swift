@@ -5,24 +5,28 @@
 //  Created by Sean on 2026/7/3.
 //
 import Foundation
+import AppKit
 
-func logout() {
-    let script = """
-    tell application "System Events"
-        log out
-    end tell
-    """
+func logout(showConfirmation: Bool = true) {
+    let eventID: AEEventID = showConfirmation
+        ? kAELogOut          // 'logo' —— 弹确认框
+        : kAEReallyLogOut    // 'rlgo' —— 不确认,直接注销
 
-    var error: NSDictionary?
-    if let appleScript = NSAppleScript(source: script) {
-        appleScript.executeAndReturnError(&error)
+    let target = NSAppleEventDescriptor(bundleIdentifier: "com.apple.loginwindow")
+    let event = NSAppleEventDescriptor(
+        eventClass: kCoreEventClass,      // 'aevt'
+        eventID: eventID,
+        targetDescriptor: target,
+        returnID: AEReturnID(kAutoGenerateReturnID),
+        transactionID: AETransactionID(kAnyTransactionID)
+    )
 
-        if let error {
-            print("Logout failed: \(error)")
-        }
+    do {
+        try event.sendEvent(options: [.noReply], timeout: TimeInterval(kAEDefaultTimeout))
+    } catch {
+        print("Logout failed: \(error)")
     }
 }
-
 struct WindowPresetItem: Identifiable, Hashable {
     let id = UUID()
     let name: String

@@ -12,25 +12,49 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var selectedSection: SidebarSections? = .presets
     @Query private var items: [Item]
-
+    @State private var showResetAlert = false
+    @State private var showLogoutAlert = false
     var body: some View {
         NavigationSplitView {
             List(SidebarSections.allCases, selection: $selectedSection) { section in
                 Label(section.rawValue, systemImage: section.iconName).tag(section)
             }
         } detail: {
-            switch selectedSection{
-            case .presets:
+            switch selectedSection {
+            case .presets, .none:
                 PresetView()
             case .details:
                 DetailView()
             //case .animations:
                 //AnimationView()
-            case .none:
+            case .reset:
+                // 显示上一个页面即可;真正的重置动作在 onChange 里处理
                 PresetView()
-                // [TODO]: i dont think this is the right way to deal this this case
             }
         }
+        .onChange(of: selectedSection) { _, newValue in
+            if newValue == .reset {
+                showResetAlert = true
+                selectedSection = .presets
+            }
+        }
+        .alert("Reset All Setting？", isPresented: $showResetAlert) {
+            Button("No", role: .cancel) {}
+            Button("Yes", role: .destructive) {
+                showLogoutAlert = true
+            }
+        } message: {
+            Text("Reset all settings to your syetem default.")
+        }
+        .alert("Reset Successful", isPresented: $showLogoutAlert) {
+            Button("Logout Later", role: .cancel) {}
+            Button("Logout"){
+                logout()
+            }
+        } message: {
+            Text("Log out to apply the change.")
+        }
+
     }
 }
 

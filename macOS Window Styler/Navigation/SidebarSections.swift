@@ -9,6 +9,7 @@
 enum SidebarSections: String, CaseIterable, Identifiable {
     case presets = "Presets"
     case details = "Details"
+    case reset = "Reset"
     // case animations = "Animations & Else"
     var id: String {self.rawValue}
     
@@ -17,6 +18,7 @@ enum SidebarSections: String, CaseIterable, Identifiable {
         case .presets: return "books.vertical"
         case .details: return "pencil.and.outline"
         // case .animations: return "hand.rays"
+        case .reset: return "arrow.trianglehead.clockwise"
         }
     }
 }
