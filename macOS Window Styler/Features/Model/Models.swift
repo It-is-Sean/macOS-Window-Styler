@@ -43,7 +43,7 @@ struct detailedSettingItem: Hashable {
     var enableFloatSidebar: Bool
 }
 
-struct detailedSettingItem: Hashable {
+struct ElseSettingItem: Hashable {
     var NSAnimationSlowMotionOnShift: Bool
     var sidebarCornerRadious: Int
     var enableFloatSidebar: Bool

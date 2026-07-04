@@ -32,6 +32,10 @@ struct macOS_Window_StylerApp: App {
                 //    model.load()
                 //}
         }
+        Window("About This App", id: "about") {
+            
+        }
+        .windowResizability(.contentMinSize)
         .windowResizability(.contentMinSize)
         .commands {
             CommandGroup(replacing: .appInfo) {
