@@ -3,9 +3,8 @@
 
 # macOS Window Styler
  Bring classic/custom macOS window styles to macOS 26+.
-
-<img width="1512" height="982" alt="Screenshot 2026-07-05 at 01 36 58" src="https://github.com/user-attachments/assets/ba3609cf-3437-4c36-bea0-3f683b7a39b1" />
-
+ 
+<img width="1512" height="982" alt="Screenshot 2026-07-05 at 01 46 56" src="https://github.com/user-attachments/assets/9a86d89d-49c4-4c32-ac54-a81af74f5e68" />
 
 ## About the Project
 - 🎨 Three built-in presets
@@ -13,7 +12,7 @@
   
     <img width="588" alt="Tahoe" src="https://github.com/user-attachments/assets/6299a2b8-e0f9-4ea1-ac08-51acb5f6e43b" />
   
-  - Big Sur
+  - Sequoia
   
     <img width="588" alt="Big Sur" src="https://github.com/user-attachments/assets/58ef9841-1e22-417a-b27f-f60701883e29" />
   
