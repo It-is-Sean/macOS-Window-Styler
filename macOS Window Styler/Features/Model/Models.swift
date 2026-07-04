@@ -7,27 +7,7 @@ import AppKit
 //
 import Foundation
 
-func logout(showConfirmation: Bool = true) {
-    let eventID: AEEventID =
-        showConfirmation
-        ? kAELogOut
-        : kAEReallyLogOut
 
-    let target = NSAppleEventDescriptor(bundleIdentifier: "com.apple.loginwindow")
-    let event = NSAppleEventDescriptor(
-        eventClass: kCoreEventClass,  // 'aevt'
-        eventID: eventID,
-        targetDescriptor: target,
-        returnID: AEReturnID(kAutoGenerateReturnID),
-        transactionID: AETransactionID(kAnyTransactionID)
-    )
-
-    do {
-        try event.sendEvent(options: [.noReply], timeout: TimeInterval(kAEDefaultTimeout))
-    } catch {
-        print("Logout failed: \(error)")
-    }
-}
 struct WindowPresetItem: Identifiable, Hashable {
     let id = UUID()
     let name: String
@@ -43,14 +23,16 @@ struct detailedSettingItem: Hashable {
     var enableFloatSidebar: Bool
 }
 
-struct ElseSettingItem: Hashable {
-    var NSAnimationSlowMotionOnShift: Bool
-    var sidebarCornerRadious: Int
-    var enableFloatSidebar: Bool
+struct defaultSettingItem: Hashable {
+    var defaultField: String
+    var defaultKey: String
+    var defaultSettingValue: String
+    var dType: String
 }
 
 enum DefaultsApplier {
     static let globalDefaults = UserDefaults(suiteName: UserDefaults.globalDomain)
+    //[TODO]: Combine the three togother using defaultsSettingItem struct
     static func applyPreset(_ preset: WindowPresetItem) {
         // Apply Radious
         dfWrite(
@@ -78,6 +60,10 @@ enum DefaultsApplier {
             key: "NSSplitViewItemSidebarDefaultsToFloatingAppearance",
             value: String(settings.enableFloatSidebar), type: "bool")
     }
+    
+    static func applyItem(_ setting: defaultSettingItem) {
+        dfWrite(key: setting.defaultKey, value: setting.defaultSettingValue, type: setting.dType,field: setting.defaultField)
+    }
 
     static func resetAll() {
         dfDelete(key: "NSConvolutionOverride1")
@@ -85,8 +71,8 @@ enum DefaultsApplier {
         dfDelete(key: "NSSplitViewItemSidebarDefaultsToFloatingAppearance")
     }
 
-    static func dfWrite(key: String, value: String, type: String? = nil) {
-        var args = ["write", "-g", key]
+    static func dfWrite(key: String, value: String, type: String? = nil, field: String = "-g") {
+        var args = ["write", field, key]
         if let type { args.append("-\(type)") }
         args.append(value)
         run("/usr/bin/defaults", args)
