@@ -41,6 +41,7 @@ struct ContentView: View {
         .alert("Reset All Setting？", isPresented: $showResetAlert) {
             Button("No", role: .cancel) {}
             Button("Yes", role: .destructive) {
+                DefaultsApplier.resetAll()
                 showLogoutAlert = true
             }
         } message: {

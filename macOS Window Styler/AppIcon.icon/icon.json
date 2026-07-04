@@ -1,6 +1,6 @@
 {
   "fill" : {
-    "automatic-gradient" : "display-p3:0.13367,0.14111,0.15479,1.00000"
+    "automatic-gradient" : "display-p3:0.00000,0.30970,0.72987,1.00000"
   },
   "groups" : [
     {
@@ -10,12 +10,12 @@
           "glass" : true,
           "image-name" : "_.png",
           "name" : "_",
-          "opacity" : 0.75,
+          "opacity" : 1,
           "position" : {
-            "scale" : 0.62,
+            "scale" : 0.65,
             "translation-in-points" : [
-              220.15250000000015,
-              -164.2109375
+              186.63687500000015,
+              -148.16093750000005
             ]
           }
         },
@@ -25,7 +25,7 @@
           "position" : {
             "scale" : 0.92,
             "translation-in-points" : [
-              -37.1171875,
+              -20.0631249999999,
               65.0390625
             ]
           }
