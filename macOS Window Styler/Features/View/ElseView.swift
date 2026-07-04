@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnimationView: View {
+struct ElseView: View {
     @State private var allItems:[WindowPresetItem] = [
         WindowPresetItem(name: "macOS X", image: "preset_macos_x", windowCornerRadious: 7,sidebarCornerRadious: 0,enableFloatSidebar: false),
         WindowPresetItem(name: "macOS 15 Big Sur", image: "preset_macos_bigsur", windowCornerRadious: 9,sidebarCornerRadious: 0,enableFloatSidebar: false),
@@ -19,9 +19,18 @@ struct AnimationView: View {
     }
     var body: some View {
         VStack(alignment: .trailing, spacing: 14){
-            VStack{
-                Text("没写完").font(.title)
+            GroupBox{
+                VStack(alignment: .leading){
+                    VStack(alignment: .leading){
+                        Text("Sidebar").font(.body).bold().foregroundStyle(.secondary)
+                        Toggle(isOn: $detailedSetting.enableFloatSidebar){
+                            Text("Float Sidebar").frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                            .toggleStyle(.switch)
+                            .frame(maxWidth: .infinity)
+                    }.frame(maxWidth: .infinity).padding(3)
             }
+
             HStack{
                 Button(action: {
                     print("Reset")

@@ -9,15 +9,15 @@
 enum SidebarSections: String, CaseIterable, Identifiable {
     case presets = "Presets"
     case details = "Details"
+    case more_content = "Else"
     case reset = "Reset"
-    // case animations = "Animations & Else"
     var id: String {self.rawValue}
     
     var iconName: String  {
         switch self {
         case .presets: return "books.vertical"
         case .details: return "pencil.and.outline"
-        // case .animations: return "hand.rays"
+        case .more_content: return "ellipsis.circle"
         case .reset: return "arrow.trianglehead.clockwise"
         }
     }
