@@ -4,7 +4,8 @@
 # macOS Window Styler
  Bring classic/custom macOS window styles to macOS 26+.
 
-<img width="1512" height="982" alt="image" src="https://github.com/user-attachments/assets/0068b056-f46d-46f3-b413-5a011c2c2770" />
+<img width="1512" height="982" alt="Screenshot 2026-07-05 at 01 36 58" src="https://github.com/user-attachments/assets/ba3609cf-3437-4c36-bea0-3f683b7a39b1" />
+
 
 ## About the Project
 - 🎨 Three built-in presets
