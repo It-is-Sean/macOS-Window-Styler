@@ -8,16 +8,19 @@
 import SwiftUI
 
 struct ElseView: View {
+    //[TODO]: defaults write -g NSSolariumWindowTabs -bool NO "removing the liquid glass effect from tabs (and only tabs in any app like safari or finder)"
+
+    //[TODO]: defaults write NSGlobalDomain NSMenuEnableActionImages -bool false: "remove all those new extra unneeded icons in menus"
     //[TODO]: Change YES/NO to true/false
     @State private var windowMinimizeSLowMotionSetting = defaultSettingItem(
         defaultField: "com.apple.dock", defaultKey: "slow-motion-allowed",
         defaultSettingValue: "NO", dType: "bool")
     @State private var pressCmdCtrlToDragWindowSetting = defaultSettingItem(
-        defaultField: "-g", defaultKey: "NSWindowShouldDragOnGesture", defaultSettingValue: "NO",
+        defaultField: "-g", defaultKey: "NSSolariumWindowTabs", defaultSettingValue: "YES",
         dType: "bool")
     @State private var pressCmdCtrlToDragWindowAnimationSetting = defaultSettingItem(
-        defaultField: "-g", defaultKey: "NSWindowShouldDragOnGestureFeedback",
-        defaultSettingValue: "TRUE", dType: "bool")
+        defaultField: "NSGlobalDomain", defaultKey: "NSMenuEnableActionImages",
+        defaultSettingValue: "YES", dType: "bool")
 
     @State private var showLogoutAlert = false
     var body: some View {
@@ -51,7 +54,7 @@ struct ElseView: View {
             GroupBox {
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
-                        Text("Gestures").font(.body).bold().foregroundStyle(.secondary)
+                        Text("Window Decorations").font(.body).bold().foregroundStyle(.secondary)
                         Toggle(
                             isOn: Binding(
                                 get: {
@@ -63,11 +66,12 @@ struct ElseView: View {
                                 }
                             )
                         ) {
-                            Text("Press 􀆔 + 􀆍 to drag window at any palce").frame(
+                            Text("Enable liquid glass effect for tabs").frame(
                                 maxWidth: .infinity, alignment: .leading)
                         }
                         .toggleStyle(.switch)
                         .frame(maxWidth: .infinity)
+                        Divider()
                         Toggle(
                             isOn: Binding(
                                 get: {
@@ -80,18 +84,11 @@ struct ElseView: View {
                                 }
                             )
                         ) {
-                            Text("Enable bounce effect when drag the window").frame(
+                            Text("Enable menus icons").frame(
                                 maxWidth: .infinity, alignment: .leading)
                         }
                         .toggleStyle(.switch)
                         .frame(maxWidth: .infinity)
-                        .disabled(pressCmdCtrlToDragWindowSetting.defaultSettingValue != "YES")
-                        .opacity(
-                            pressCmdCtrlToDragWindowSetting.defaultSettingValue == "YES" ? 1 : 0.4
-                        )
-                        .animation(
-                            .default,
-                            value: pressCmdCtrlToDragWindowSetting.defaultSettingValue == "YES")
 
                     }.frame(maxWidth: .infinity)
                         .padding(3)
@@ -121,15 +118,13 @@ struct ElseView: View {
 
                 }
                 .buttonStyle(.borderedProminent)
-                .alert("Changes Saved!", isPresented: $showLogoutAlert) {
-                    HStack {
-                        Button("Later", role: .cancel) {}
-                        Button("Restart Dock") {
-                            killAll(target: "Dock")
+                .alert("Restart Needed", isPresented: $showLogoutAlert) {
+                    Button("Later", role: .cancel) {}
+                    Button("Now", role: .destructive){
+                            reboot()
                         }
-                    }
                 } message: {
-                    Text("Restart dock to apply the change.")
+                    Text("Restart your mac to apply the change.")
                 }
 
             }

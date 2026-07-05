@@ -31,6 +31,23 @@ func logout(showConfirmation: Bool = true) {
     }
 }
 
+func reboot() {
+    let target = NSAppleEventDescriptor(bundleIdentifier: "com.apple.loginwindow")
+    let event = NSAppleEventDescriptor(
+        eventClass: kCoreEventClass,  // 'aevt'
+        eventID: kAERestart,
+        targetDescriptor: target,
+        returnID: AEReturnID(kAutoGenerateReturnID),
+        transactionID: AETransactionID(kAnyTransactionID)
+    )
+
+    do {
+        try event.sendEvent(options: [.noReply], timeout: TimeInterval(kAEDefaultTimeout))
+    } catch {
+        print("Reboot failed: \(error)")
+    }
+}
+
 func killAll(target: String){
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/usr/bin/killall")
