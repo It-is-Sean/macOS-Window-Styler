@@ -52,9 +52,8 @@ git clone https://github.com/yourname/macOS-Window-Styler.git
 ---
 ## ❤️ Acknowledgements
 
-This project was inspired by the excellent Reddit post by **u/Aacha_ladka**:
-
-> **Modify window appearance in macOS Tahoe using terminal commands**  
-> https://www.reddit.com/r/MacOS/comments/1ulpej5/modify_window_appearance_in_macos_tahoe_using/
+This project was inspired by the excellent Reddit post by **u/Aacha_ladka**: [**Modify window appearance in macOS Tahoe using terminal commands**](https://www.reddit.com/r/MacOS/comments/1ulpej5/modify_window_appearance_in_macos_tahoe_using/)
 
 Their research uncovered a way to customize macOS window styles using hidden system defaults. This application builds upon those discoveries and provides a simple native graphical interface for everyone.
+
+> *This project is affiliated with and recognized by the LINUX DO community: https://linux.do*
