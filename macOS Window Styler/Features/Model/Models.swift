@@ -69,6 +69,9 @@ enum DefaultsApplier {
         dfDelete(key: "NSConvolutionOverride1")
         dfDelete(key: "NSSplitViewItemGlassMinimumCornerRadius")
         dfDelete(key: "NSSplitViewItemSidebarDefaultsToFloatingAppearance")
+        dfDelete(key: "NSSolariumWindowTabs")
+        dfDelete(key: "NSMenuEnableActionImages", domain: "NSGlobalDomain")
+        dfDelete(key: "slow-motion-allowed",domain: "com.apple.dock")
     }
 
     static func dfWrite(key: String, value: String, type: String? = nil, field: String = "-g") {
@@ -78,8 +81,8 @@ enum DefaultsApplier {
         run("/usr/bin/defaults", args)
     }
 
-    static func dfDelete(key: String) {
-        var args = ["delete", "-g", key]
+    static func dfDelete(key: String, domain: String = "-g") {
+        var args = ["delete", domain, key]
         run("/usr/bin/defaults", args)
     }
 

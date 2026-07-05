@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var selectedSection: SidebarSections? = .presets
     @Query private var items: [Item]
     @State private var showResetAlert = false
-    @State private var showLogoutAlert = false
+    @State private var showRebootAlert = false
     var body: some View {
         NavigationSplitView {
             List(SidebarSections.allCases, selection: $selectedSection) { section in
@@ -44,18 +44,18 @@ struct ContentView: View {
             Button("No", role: .cancel) {}
             Button("Yes", role: .destructive) {
                 DefaultsApplier.resetAll()
-                showLogoutAlert = true
+                showRebootAlert = true
             }
         } message: {
             Text("Reset all settings to your syetem default.")
         }
-        .alert("Reset Successful", isPresented: $showLogoutAlert) {
-            Button("Logout Later", role: .cancel) {}
-            Button("Logout"){
-                logout()
+        .alert("Reset Successful", isPresented: $showRebootAlert) {
+            Button("Restart Later", role: .cancel) {}
+            Button("Restart"){
+                reboot()
             }
         } message: {
-            Text("Log out to apply the change.")
+            Text("Restart mac to apply the change.")
         }
 
     }

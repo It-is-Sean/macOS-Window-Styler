@@ -10,7 +10,7 @@ import SwiftUI
 struct PresetView: View {
     @State private var allItems:[WindowPresetItem] = [
         WindowPresetItem(name: "macOS X", image: "preset_macos_x", windowCornerRadious: 10,sidebarCornerRadious: 0,enableFloatSidebar: false),
-        WindowPresetItem(name: "macOS 15 Big Sur", image: "preset_macos_bigsur", windowCornerRadious: 18,sidebarCornerRadious: 0,enableFloatSidebar: false),
+        WindowPresetItem(name: "macOS 15 Sequoia", image: "preset_macos_bigsur", windowCornerRadious: 18,sidebarCornerRadious: 0,enableFloatSidebar: false),
         WindowPresetItem(name: "macOS 26 Tahoe", image: "preset_macos_tahoe", windowCornerRadious: 26,sidebarCornerRadious: 19,enableFloatSidebar: true),
     ]
     @State private var selectedID: WindowPresetItem.ID? = nil
@@ -53,13 +53,13 @@ struct PresetView: View {
                         Text("Apply")
                             .font(.headline)
                     }
-                    .alert("Reset Successful", isPresented: $showLogoutAlert) {
+                    .alert("Preset Applied", isPresented: $showLogoutAlert) {
                             Button("Logout Later", role: .cancel) {}
                             Button("Logout"){
                                 logout()
                             }
                     } message: {
-                        Text("Log out to apply the change.")
+                        Text("Preset has been applied. Log out to apply the changes.")
                     }
                     
                     

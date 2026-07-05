@@ -8,13 +8,17 @@
 import SwiftUI
 import SwiftData
 
+
+
+
 struct DetailView: View {
     @State private var defaultDetailedSetting = detailedSettingItem(windowCornerRadious: 26, sidebarCornerRadious: 19, enableFloatSidebar: true)
     
 
     @State private var detailedSetting = detailedSettingItem(windowCornerRadious: 26, sidebarCornerRadious: 19, enableFloatSidebar: true)
 
-    @State private var showLogoutAlert = false
+    @State private var showResetAlert = false
+    @State private var showApplyAlert = false
 
     var body: some View{
         VStack(alignment: .trailing, spacing: 14){
@@ -33,8 +37,8 @@ struct DetailView: View {
                                 .frame(width: 34, alignment: .center)
                                 .contentTransition(.numericText())
                                 .animation(.default, value: detailedSetting.windowCornerRadious)
-                        }.padding(3)
-                    }.padding(7)
+                        }
+                    }.padding(10)
                 }
                 
                 GroupBox{
@@ -70,52 +74,44 @@ struct DetailView: View {
             }
             Spacer()
             HStack{
+                // reset
                 Button(action: {
                     detailedSetting = defaultDetailedSetting
                     DefaultsApplier.applyDetail(detailedSetting)
-                    showLogoutAlert = true
+                    showResetAlert = true
 
                 }){
                     Text("Reset")
                 }
                 .buttonStyle(.automatic)
-                .alert("Reset Successful", isPresented: $showLogoutAlert) {
-                    HStack{
-                        Button("Logout Later", role: .cancel) {}
+                .alert("Reset Successful", isPresented: $showResetAlert) {
+                        Button("Later", role: .cancel) {}
                         Button("Logout"){
                             logout()
-                        }
                     }
                 } message: {
-                    Text("Log out to apply the change.")
+                    Text("Reset saved. Log out to apply the change.")
                 }
+                // Apply
                 Button(action: {
                     print("Applied")
                     DefaultsApplier.applyDetail(detailedSetting)
-                    showLogoutAlert = true
+                    showApplyAlert = true
                 }) {
                     HStack {
                         Image(systemName: "wand.and.stars")
                         Text("Apply")
                             .font(.headline)
                     }
-                    
-                    
-                    //.foregroundColor(.white)
-                    //.background(Color.blue)
-                    //.cornerRadius(10)
-                    
                 }
                 .buttonStyle(.borderedProminent)
-                .alert("Changes Saved!", isPresented: $showLogoutAlert) {
-                    HStack{
-                        Button("Logout Later", role: .cancel) {}
-                        Button("Logout"){
+                .alert("Changes Saved", isPresented: $showApplyAlert) {
+                    Button("Later", role: .cancel) {}
+                    Button("Logout"){
                             logout()
-                        }
                     }
                 } message: {
-                    Text("Log out to apply the change.")
+                    Text("Changes saved. Log out to apply the changes.")
                 }
                     
             }

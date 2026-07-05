@@ -1,6 +1,6 @@
 {
   "fill" : {
-    "automatic-gradient" : "display-p3:0.00000,0.30970,0.72987,1.00000"
+    "automatic-gradient" : "display-p3:0.05884,0.28320,0.72070,1.00000"
   },
   "groups" : [
     {
@@ -10,7 +10,7 @@
           "glass" : true,
           "image-name" : "_.png",
           "name" : "_",
-          "opacity" : 1,
+          "opacity" : 0.74,
           "position" : {
             "scale" : 0.65,
             "translation-in-points" : [
