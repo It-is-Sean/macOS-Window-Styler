@@ -33,7 +33,7 @@ struct ContentView: View {
                 PresetView()
             }
         }
-        
+        .navigationTransition(.automatic)
         .onChange(of: selectedSection) { _, newValue in
             if newValue == .reset {
                 showResetAlert = true

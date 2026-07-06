@@ -25,6 +25,12 @@ struct ElseView: View {
     @State private var showLogoutAlert = false
     var body: some View {
         VStack {
+            HStack{
+                Text("Else")
+                    .font(.system(.largeTitle,weight: .semibold))
+                    .fontWidth(.expanded)
+                Spacer()
+            }.padding(.leading, 5).padding(.bottom, -1)
             GroupBox {
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
@@ -112,12 +118,12 @@ struct ElseView: View {
                             .font(.headline)
                     }
 
-                    //.foregroundColor(.white)
+                    .foregroundColor(.white)
                     //.background(Color.blue)
                     //.cornerRadius(10)
 
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.glassProminent)
                 .alert("Restart Needed", isPresented: $showLogoutAlert) {
                     Button("Later", role: .cancel) {}
                     Button("Now", role: .destructive){
@@ -127,9 +133,7 @@ struct ElseView: View {
                     Text("Restart your mac to apply the change.")
                 }
 
-            }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
+            }            .controlSize(.large)
 
         }.padding()
 

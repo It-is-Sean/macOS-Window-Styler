@@ -30,12 +30,12 @@ struct macOS_Window_StylerApp: App {
                 .frame(minWidth: 720, minHeight: 520)
                 //.containerBackground(.thinMaterial, for: .window)
 
-                //.toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
+                .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
                 //onAppear {
                 //    model.load()
                 //}
         }
-        //.windowStyle(.hiddenTitleBar)
+        .windowStyle(.hiddenTitleBar)
         //.windowBackgroundDragBehavior(.enabled)
         .commands {
             CommandGroup(replacing: .appInfo) {

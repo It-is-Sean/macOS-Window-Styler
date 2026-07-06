@@ -23,7 +23,12 @@ struct DetailView: View {
     var body: some View{
         VStack(alignment: .trailing, spacing: 14){
             VStack{
-
+                HStack{
+                    Text("Details")
+                        .font(.system(.largeTitle,weight: .semibold))
+                        .fontWidth(.expanded)
+                    Spacer()
+                }.padding(.leading, 5).padding(.bottom, -1)
                 GroupBox{
                     VStack(alignment: .leading){
                         Text("Window Corner Radius").font(.body).bold().foregroundStyle(.secondary)
@@ -40,7 +45,6 @@ struct DetailView: View {
                         }
                     }.padding(10)
                 }
-                
                 GroupBox{
                     VStack(alignment: .leading){
                         VStack(alignment: .leading){
@@ -83,7 +87,7 @@ struct DetailView: View {
                 }){
                     Text("Reset")
                 }
-                .buttonStyle(.automatic)
+                .buttonStyle(.glass)
                 .alert("Reset Successful", isPresented: $showResetAlert) {
                         Button("Later", role: .cancel) {}
                         Button("Logout"){
@@ -103,8 +107,10 @@ struct DetailView: View {
                         Text("Apply")
                             .font(.headline)
                     }
+                    .foregroundStyle(.white)
+
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.glassProminent)
                 .alert("Changes Saved", isPresented: $showApplyAlert) {
                     Button("Later", role: .cancel) {}
                     Button("Logout"){

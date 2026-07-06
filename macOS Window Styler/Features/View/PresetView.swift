@@ -19,64 +19,63 @@ struct PresetView: View {
         allItems.first {$0.id == selectedID}
     }
     var body: some View {
-        VStack(alignment: .center, spacing: 14){
+        TabView(selection: $selectedID) {
+             ForEach(allItems) { item in
+                 VStack(alignment: .center) {
+                     HStack{
+                         Text("Preview:")
+                             .font(.system(.title,weight: .semibold))
+                             .fontWidth(.expanded)
+                         Spacer()
+                     }.padding(.leading, 5).padding(.bottom, -1)
 
-                Picker("Presets", selection: $selectedID){
-                    ForEach(allItems) { item in
-                        Text(item.name).tag(item.id as WindowPresetItem.ID?)
-                    }
-                }
-                .pickerStyle(.palette)
-                .labelsHidden()
-                .fixedSize()
+                     Image(item.image)
+                         .resizable()
+                         .scaledToFit()
+                         .background(.clear)
+                         .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
 
-                Spacer()
-                VStack(alignment: .leading){
-                    Text("Preview:").font(.body).foregroundStyle(.secondary).bold()
-                    Image(selectedItem?.image ?? "preset_macos_bigsur")
-                        .resizable()
-                        .scaledToFit()
-                        //.frame(maxWidth: .infinity, maxHeight: 400)
-                        .background(.clear)
-                        .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-                }
-            Spacer()
-            HStack{
-                Spacer()
-                Button(action: {
-                    print("Applied")
-                    DefaultsApplier.applyPreset(selectedItem ?? WindowPresetItem(name: "macOS 26 Tahoe", image: "preset_macos_tahoe", windowCornerRadious: 26,sidebarCornerRadious: 19,enableFloatSidebar: true))
-                    showLogoutAlert = true
-                }) {
-                    HStack {
-                        Image(systemName: "wand.and.stars")
-                        Text("Apply")
-                            .font(.headline)
-                    }
-                    .alert("Preset Applied", isPresented: $showLogoutAlert) {
-                            Button("Logout Later", role: .cancel) {}
-                            Button("Logout"){
-                                logout()
-                            }
-                    } message: {
-                        Text("Preset has been applied. Log out to apply the changes.")
-                    }
-                    
-                    
-                    //.foregroundColor(.white)
-                    //.background(Color.blue)
-                    //.cornerRadius(10)
-                    
-                }            .buttonStyle(.borderedProminent)
-                    
-            }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
-        }.padding()
-        .onAppear{
-            if selectedID == nil{
-                selectedID = allItems.first?.id
-            }
+                     Spacer()
+                     HStack{
+                         Spacer()
+                         Button(action: {
+                             print("Applied")
+                             DefaultsApplier.applyPreset(selectedItem ?? WindowPresetItem(name: "macOS 26 Tahoe", image: "preset_macos_tahoe", windowCornerRadious: 26,sidebarCornerRadious: 19,enableFloatSidebar: true))
+                             showLogoutAlert = true
+                         }) {
+                             HStack {
+                                 Image(systemName: "wand.and.stars")
+                                 Text("Apply")
+                                     .font(.headline)
+                             }
+                             .foregroundStyle(.white)
+
+                             .alert("Preset Applied", isPresented: $showLogoutAlert) {
+                                     Button("Logout Later", role: .cancel) {}
+                                     Button("Logout"){
+                                         logout()
+                                     }
+                             } message: {
+                                 Text("Preset has been applied. Log out to apply the changes.")
+                             }
+                             
+                             
+                             //.foregroundColor(.white)
+                             //.background(Color.blue)
+                             //.cornerRadius(10)
+                             
+                         }
+                         .controlSize(.large)
+                         .buttonStyle(.glassProminent)
+                             
+                     }
+                 }
+                 .padding()
+                 .tabItem {
+                     Text(item.name)
+                 }
+                 .tag(item.id as WindowPresetItem.ID?)
+             }
         }
     }
 }
