@@ -30,10 +30,10 @@ struct ContentView: View {
             case .more_content:
                 ElseView()
             case .reset:
-                // 显示上一个页面即可;真正的重置动作在 onChange 里处理
                 PresetView()
             }
         }
+        
         .onChange(of: selectedSection) { _, newValue in
             if newValue == .reset {
                 showResetAlert = true
@@ -57,7 +57,6 @@ struct ContentView: View {
         } message: {
             Text("Restart mac to apply the change.")
         }
-
     }
 }
 

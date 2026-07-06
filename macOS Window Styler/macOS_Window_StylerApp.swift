@@ -28,25 +28,40 @@ struct macOS_Window_StylerApp: App {
             ContentView()
                 // .environmentObject(model)
                 .frame(minWidth: 720, minHeight: 520)
+                //.containerBackground(.thinMaterial, for: .window)
+
+                //.toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
                 //onAppear {
                 //    model.load()
                 //}
         }
-        Window("About This App", id: "about") {
-            
-        }
-        .windowResizability(.contentMinSize)
-        .windowResizability(.contentMinSize)
+        //.windowStyle(.hiddenTitleBar)
+        //.windowBackgroundDragBehavior(.enabled)
         .commands {
             CommandGroup(replacing: .appInfo) {
-                Button("About macOS Window Styler") {
-                    NSApp.orderFrontStandardAboutPanel(options: [
-                        .applicationName: "macOS Window Styler",
-                        .version: "1.0"
-                    ])
-                }
+                AboutMenuButton()
             }
         }
+        
+        
+        Window("About The App", id: "about") {
+            AboutView()
+                .containerBackground(.thickMaterial, for: .window)
+    
+        }
+        .windowResizability(.contentSize)
         .modelContainer(sharedModelContainer)
+        .windowStyle(.hiddenTitleBar)
+        .windowBackgroundDragBehavior(.enabled)
+    }
+}
+struct AboutMenuButton: View {
+    @Environment(\.openWindow) private var openWindow
+    var body: some View {
+        Button {
+            openWindow(id: "about")
+        } label: {
+            Label("About macOS Windows Styler", systemImage: "info.circle")
+        }
     }
 }
