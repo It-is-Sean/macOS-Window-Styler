@@ -29,27 +29,26 @@
     {
       "layers" : [
         {
-          "glass" : true,
           "image-name" : "upper.png",
           "name" : "upper",
           "opacity" : 0.6,
           "position" : {
-            "scale" : 0.74,
+            "scale" : 0.66,
             "translation-in-points" : [
-              150.26811544535917,
-              -93.82731226785131
+              153.59817696274536,
+              -103.66081907433329
             ]
           }
         },
         {
           "image-name" : "_ 2.png",
           "name" : "_ 2",
-          "opacity" : 0.76,
+          "opacity" : 0.88,
           "position" : {
-            "scale" : 0.89,
+            "scale" : 0.85,
             "translation-in-points" : [
-              -16.683115445359192,
-              64.48268773214863
+              -11.153176962745249,
+              63.114313316163475
             ]
           }
         },
@@ -58,10 +57,10 @@
           "name" : "lower",
           "opacity" : 0.6,
           "position" : {
-            "scale" : 0.74,
+            "scale" : 0.66,
             "translation-in-points" : [
-              150.26811544535917,
-              -93.82731226785131
+              153.59817696274536,
+              -103.66081907433329
             ]
           }
         }

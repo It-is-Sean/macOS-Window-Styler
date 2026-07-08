@@ -85,8 +85,8 @@ struct AboutView: View {
                         .fontWidth(.expanded)
                 }
                 .shadow(
-                    color: isLinkHovered ? .blue.opacity(0.45) : .clear,
-                    radius: isLinkHovered ? 3 : 0
+                    color: isLinkHovered ? .blue.opacity(0.5) : .clear,
+                    radius: isLinkHovered ? 3.5 : 0
                 )
                 .animation(.easeIn(duration: isLinkHovered ? 0.1 : 0.35), value: isLinkHovered)
                 .onHover{linkHovering in

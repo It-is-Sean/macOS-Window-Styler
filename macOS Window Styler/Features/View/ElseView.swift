@@ -22,7 +22,7 @@ struct ElseView: View {
         defaultField: "NSGlobalDomain", defaultKey: "NSMenuEnableActionImages",
         defaultSettingValue: "YES", dType: "bool")
 
-    @State private var showLogoutAlert = false
+
     var body: some View {
         VStack {
             HStack{
@@ -103,36 +103,14 @@ struct ElseView: View {
             Spacer()
             HStack {
                 Spacer()
-                Button(action: {
+                applyAndRebootButtom{
                     print("Applied")
                     DefaultsApplier.applyItem(windowMinimizeSLowMotionSetting)
                     DefaultsApplier.applyItem(pressCmdCtrlToDragWindowSetting)
                     if pressCmdCtrlToDragWindowSetting.defaultSettingValue == "TRUE" {
                         DefaultsApplier.applyItem(pressCmdCtrlToDragWindowAnimationSetting)
                     }
-                    showLogoutAlert = true
-                }) {
-                    HStack {
-                        Image(systemName: "wand.and.stars")
-                        Text("Apply")
-                            .font(.headline)
-                    }
-
-                    .foregroundColor(.white)
-                    //.background(Color.blue)
-                    //.cornerRadius(10)
-
                 }
-                .buttonStyle(.glassProminent)
-                .alert("Restart Needed", isPresented: $showLogoutAlert) {
-                    Button("Later", role: .cancel) {}
-                    Button("Now", role: .destructive){
-                            reboot()
-                        }
-                } message: {
-                    Text("Restart your mac to apply the change.")
-                }
-
             }            .controlSize(.large)
 
         }.padding()

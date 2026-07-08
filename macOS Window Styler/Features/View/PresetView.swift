@@ -24,7 +24,7 @@ struct PresetView: View {
                  VStack(alignment: .center) {
                      HStack{
                          Text("Preview:")
-                             .font(.system(.title,weight: .semibold))
+                             .font(.system(.largeTitle,weight: .semibold))
                              .fontWidth(.expanded)
                          Spacer()
                      }.padding(.leading, 5).padding(.bottom, -1)
@@ -38,35 +38,10 @@ struct PresetView: View {
                      Spacer()
                      HStack{
                          Spacer()
-                         Button(action: {
+                         applyAndLogoutButtom{
                              print("Applied")
                              DefaultsApplier.applyPreset(selectedItem ?? WindowPresetItem(name: "macOS 26 Tahoe", image: "preset_macos_tahoe", windowCornerRadious: 26,sidebarCornerRadious: 19,enableFloatSidebar: true))
-                             showLogoutAlert = true
-                         }) {
-                             HStack {
-                                 Image(systemName: "wand.and.stars")
-                                 Text("Apply")
-                                     .font(.headline)
-                             }
-                             .foregroundStyle(.white)
-
-                             .alert("Preset Applied", isPresented: $showLogoutAlert) {
-                                     Button("Logout Later", role: .cancel) {}
-                                     Button("Logout"){
-                                         logout()
-                                     }
-                             } message: {
-                                 Text("Preset has been applied. Log out to apply the changes.")
-                             }
-                             
-                             
-                             //.foregroundColor(.white)
-                             //.background(Color.blue)
-                             //.cornerRadius(10)
-                             
                          }
-                         .controlSize(.large)
-                         .buttonStyle(.glassProminent)
                              
                      }
                  }

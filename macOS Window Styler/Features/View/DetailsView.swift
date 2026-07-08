@@ -17,9 +17,6 @@ struct DetailView: View {
 
     @State private var detailedSetting = detailedSettingItem(windowCornerRadious: 26, sidebarCornerRadious: 19, enableFloatSidebar: true)
 
-    @State private var showResetAlert = false
-    @State private var showApplyAlert = false
-
     var body: some View{
         VStack(alignment: .trailing, spacing: 14){
             VStack{
@@ -79,50 +76,19 @@ struct DetailView: View {
             Spacer()
             HStack{
                 // reset
-                Button(action: {
+                resetAndLogoutButtom{
                     detailedSetting = defaultDetailedSetting
                     DefaultsApplier.applyDetail(detailedSetting)
-                    showResetAlert = true
-
-                }){
-                    Text("Reset")
-                }
-                .buttonStyle(.glass)
-                .alert("Reset Successful", isPresented: $showResetAlert) {
-                        Button("Later", role: .cancel) {}
-                        Button("Logout"){
-                            logout()
-                    }
-                } message: {
-                    Text("Reset saved. Log out to apply the change.")
                 }
                 // Apply
-                Button(action: {
+                applyAndLogoutButtom{
                     print("Applied")
                     DefaultsApplier.applyDetail(detailedSetting)
-                    showApplyAlert = true
-                }) {
-                    HStack {
-                        Image(systemName: "wand.and.stars")
-                        Text("Apply")
-                            .font(.headline)
-                    }
-                    .foregroundStyle(.white)
-
-                }
-                .buttonStyle(.glassProminent)
-                .alert("Changes Saved", isPresented: $showApplyAlert) {
-                    Button("Later", role: .cancel) {}
-                    Button("Logout"){
-                            logout()
-                    }
-                } message: {
-                    Text("Changes saved. Log out to apply the changes.")
                 }
                     
             }
             .buttonStyle(.borderedProminent)
-            .controlSize(.large)
+
         }.padding().frame(maxWidth: .infinity)
     }
 }
