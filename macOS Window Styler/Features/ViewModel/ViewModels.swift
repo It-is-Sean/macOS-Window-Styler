@@ -109,7 +109,7 @@ struct resetAllAndLRebootButtom: View{
 
         .buttonStyle(.glassProminent)
         .controlSize(.large)
-        .tint(.red.opacity(0.55))
+        .tint(.red)
         .alert("Reset All Setting？", isPresented: $showResetAlert) {
             Button("No", role: .cancel) {}
             Button("Yes", role: .destructive) {

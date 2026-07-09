@@ -18,7 +18,7 @@ struct ContentView: View {
  
                 List(SidebarSections.allCases, selection: $selectedSection) { section in
                     Label(section.rawValue, systemImage: section.iconName).tag(section)
-                }
+                }.padding(.top, 15)
         } detail: {
             switch selectedSection {
             case .presets, .none:
