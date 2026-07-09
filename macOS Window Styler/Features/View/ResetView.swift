@@ -17,7 +17,7 @@ struct ResetView: View{
             }.padding(.leading, 5).padding(.bottom, -1)
             GroupBox {
                 VStack(alignment: .leading) {
-                    HStack{
+                    HStack(alignment:.center){
                         Text("Reset Windows Decoraion Settings").font(.body).bold().foregroundStyle(.secondary)
                         Spacer()
                         resetAndLogoutButtom{
@@ -25,7 +25,7 @@ struct ResetView: View{
                         }
                     }
                     Divider()
-                    HStack{
+                    HStack(alignment: .center){
                         Text("Reset All Settings").font(.body).bold().foregroundStyle(.secondary)
                         Spacer()
                         resetAllAndLRebootButtom()

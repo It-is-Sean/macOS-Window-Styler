@@ -15,21 +15,10 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView{
-            VStack(alignment: .leading){
-                VStack(alignment: .leading){
-                    Text("macOS")
-                        .font(.system(.title,weight: .semibold))
-                        .fontWidth(.expanded)
-                    Text("Window Styler")
-                        .font(.system(.title,weight: .semibold))
-                        .fontWidth(.expanded)
-                }.padding(.leading, 15)
-                    .padding(.top, 15)
  
                 List(SidebarSections.allCases, selection: $selectedSection) { section in
                     Label(section.rawValue, systemImage: section.iconName).tag(section)
                 }
-            }
         } detail: {
             switch selectedSection {
             case .presets, .none:

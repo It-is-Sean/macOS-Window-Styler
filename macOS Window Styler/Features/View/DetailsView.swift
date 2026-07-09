@@ -65,10 +65,7 @@ struct DetailView: View {
                                 .contentTransition(.numericText())
                                 .animation(.default, value: detailedSetting.sidebarCornerRadious)
                         }
-                        .disabled(!detailedSetting.enableFloatSidebar)
-                        .opacity(detailedSetting.enableFloatSidebar ? 1 : 0.4)
-                        .animation(.default, value: detailedSetting.enableFloatSidebar)
-                        .padding(3)
+                        .frame(maxWidth: .infinity).padding(3)
                     }.padding(7).frame(maxWidth: .infinity)
                 }
                 

@@ -14,11 +14,26 @@ struct AboutView: View {
     }
     @State private var isIconHovered = false
     @State private var isLinkHovered = false
+    @State private var isTitleHovered = false
     @State private var hoverTask: Task<Void, Never>?
     @State private var tilt: CGSize = .zero
     private let maxTiltDegrees: Double = 7
     
     private let hoverGLowDelay: UInt64 = 250_000_000
+    @State private var fontWidthIndex = 0
+    @State private var fontDesignIndex = 0
+    private let textFontWidths: [Font.Width] = [
+        .expanded,
+        .condensed,
+        .compressed
+    ]
+    private let textFontWeights: [Font.Weight] = [
+        .semibold,
+        .thin,
+        .light,
+        .ultraLight,
+        .bold
+    ]
     var body: some View{
         HStack(alignment: .center, spacing: 4){
             Image(nsImage: NSApp.applicationIconImage)
@@ -71,9 +86,41 @@ struct AboutView: View {
                 }
             
             VStack(alignment: .leading, spacing: 4){
-                Text("macOS Window Styler")
-                    .font(.system(.title,weight: .semibold))
-                    .fontWidth(.expanded)
+                Button {
+                    let availableWidthIndices = textFontWidths.indices.filter { $0 != fontWidthIndex }
+                    let availableDesignIndices = textFontWeights.indices.filter { $0 != fontDesignIndex }
+                    fontDesignIndex = availableDesignIndices.randomElement()!
+                    fontWidthIndex = availableWidthIndices.randomElement()!
+               
+                } label: {
+                    Text("macOS Window Styler")
+                        .font(.system(size: 25, weight: isTitleHovered ? textFontWeights[fontDesignIndex] : .semibold , design: .default))
+                        .fontWidth(isTitleHovered ? textFontWidths[fontWidthIndex] : .expanded)
+                        .frame(width: 330, height: 27, alignment: .topLeading)
+                        .padding(0)
+                        .contentTransition(.numericText(countsDown: true    ))
+                        .animation(.default, value: fontWidthIndex)
+                        .scaleEffect(isTitleHovered ? 1.02 : 1.0)
+                        .animation(.spring(duration: 0.55), value: isTitleHovered)
+                        .onHover { hovering in
+                            hoverTask?.cancel()
+                            fontDesignIndex = 0
+                            fontWidthIndex = 0
+                            if hovering{
+                                hoverTask = Task{
+                                    try? await Task.sleep(nanoseconds: hoverGLowDelay)
+                                    guard !Task.isCancelled else {return}
+                                    await MainActor.run {
+                                        isTitleHovered = true
+                                    }
+                                }
+                            } else {
+                                isTitleHovered = false
+                            }
+                        }
+                }
+                .buttonStyle(.plain)
+    
                 Text("Built by Sean • Version \(appVersion)")
                     .font(.system(.subheadline, weight: .light))
                     .foregroundStyle(.secondary)

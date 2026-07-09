@@ -80,7 +80,7 @@ struct resetAndLogoutButtom: View{
             action()
             showResetAlert = true
         }){
-            Text("Reset")
+            Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
         }
         .buttonStyle(.glass)
         .controlSize(.large)
@@ -104,12 +104,12 @@ struct resetAllAndLRebootButtom: View{
         Button(action: {
             showResetAlert = true
         }){
-            Text("Reset All")
+            Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
         }
 
         .buttonStyle(.glassProminent)
         .controlSize(.large)
-        .tint(.red)
+        .tint(.red.opacity(0.55))
         .alert("Reset All Setting？", isPresented: $showResetAlert) {
             Button("No", role: .cancel) {}
             Button("Yes", role: .destructive) {
