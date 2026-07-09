@@ -1,10 +1,9 @@
-<img width="6000" height="2800" alt="macOS_Windows_Styler_Banner" src="https://github.com/user-attachments/assets/26296afd-7b63-472f-afa9-7cdcc01eee5c" />
-
+<img width="6000" height="2800" alt="Banner" src="https://github.com/user-attachments/assets/f3ea614f-563e-471d-855b-b90bb5c1fd7a" />
 
 # macOS Window Styler
  Bring classic/custom macOS window styles to macOS 26+.
  
-<img width="1053" height="649" alt="image" src="https://github.com/user-attachments/assets/c37bc9bf-a356-4858-846f-8487f289946d" />
+<img width="1053" height="649" alt="Start Page" src="https://github.com/user-attachments/assets/c37bc9bf-a356-4858-846f-8487f289946d" />
 
 ## About the Project
 - 🎨 Three built-in presets
