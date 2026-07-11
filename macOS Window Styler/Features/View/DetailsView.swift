@@ -12,11 +12,13 @@ import SwiftData
 
 
 struct DetailView: View {
-    @State private var defaultDetailedSetting = detailedSettingItem(windowCornerRadious: 26, sidebarCornerRadious: 19, enableFloatSidebar: true)
+    private let defaultDetailedSetting = detailedSettingItem(windowCornerRadious: 26, sidebarCornerRadious: 19, enableFloatSidebar: true)
     
 
     @State private var detailedSetting = detailedSettingItem(windowCornerRadious: 26, sidebarCornerRadious: 19, enableFloatSidebar: true)
-
+    @State private var windowCornerRadiousValue:Double = 26
+    @State private var siderbarCornerRadiousValue: Double = 19
+    
     var body: some View{
         VStack(alignment: .trailing, spacing: 14){
             VStack{
@@ -30,15 +32,25 @@ struct DetailView: View {
                     VStack(alignment: .leading){
                         Text("Window Corner Radius").font(.body).bold().foregroundStyle(.secondary)
                         HStack{
-                            Slider(value: Binding(
-                                get: {Double(detailedSetting.windowCornerRadious)},
-                                set: {detailedSetting.windowCornerRadious  = Int($0)}),
-                                   in: 1...30)
-                            Text("\(detailedSetting.windowCornerRadious)")
+                            Slider(value: $windowCornerRadiousValue,
+                                   in: 1...30,
+                            onEditingChanged: { editing in
+                                if !editing{
+                                    detailedSetting.windowCornerRadious = Int(windowCornerRadiousValue)
+                                }
+                            })
+                            Text("\(Int(windowCornerRadiousValue))")
                                 .font(.title2.monospacedDigit()).bold().foregroundStyle(.secondary)
                                 .frame(width: 34, alignment: .center)
                                 .contentTransition(.numericText())
-                                .animation(.default, value: detailedSetting.windowCornerRadious)
+                                .animation(.default, value: Int(windowCornerRadiousValue))
+                                .onChange(of: Int(windowCornerRadiousValue)){
+                                    NSHapticFeedbackManager.defaultPerformer.perform(
+                                        .alignment,
+                                        performanceTime: .now
+
+                                    )
+                                }
                         }
                     }.padding(10)
                 }
@@ -55,17 +67,27 @@ struct DetailView: View {
                         Divider()
                         HStack{
                             Text("Corner Radious")
-                            Slider(value: Binding(
-                                get: {Double(detailedSetting.sidebarCornerRadious)},
-                                set: {detailedSetting.sidebarCornerRadious  = Int($0)}),
-                                   in: 1...30)
-                            Text("\(detailedSetting.sidebarCornerRadious)")
+                            Slider(value: $siderbarCornerRadiousValue,
+                                   in: 1...26,
+                                   onEditingChanged: { editing in
+                                    if !editing{
+                                        detailedSetting.sidebarCornerRadious = Int(siderbarCornerRadiousValue)
+                                    
+                                    }
+                            })
+                            
+                            Text("\(Int(siderbarCornerRadiousValue))")
                                 .font(.title2.monospacedDigit()).bold().foregroundStyle(.secondary)
                                 .frame(width: 34, alignment: .center)
                                 .contentTransition(.numericText())
-                                .animation(.default, value: detailedSetting.sidebarCornerRadious)
-                        }
-                        .frame(maxWidth: .infinity).padding(3)
+                                .animation(.default, value: Int(siderbarCornerRadiousValue))
+                                .onChange(of: Int(siderbarCornerRadiousValue)) {
+                                    NSHapticFeedbackManager.defaultPerformer.perform(
+                                        .alignment,
+                                        performanceTime: .now
+                                    )
+                                }
+                        }.frame(maxWidth: .infinity).padding(3)
                     }.padding(7).frame(maxWidth: .infinity)
                 }
                 
