@@ -28,13 +28,12 @@ struct macOS_Window_StylerApp: App {
             ContentView()
                 // .environmentObject(model)
                 .frame(minWidth: 720, minHeight: 520)
-                //.containerBackground(.thinMaterial, for: .window)
-
-                .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
+                //.containerBackground(.ultraThickMaterial, for: .window)             .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
                 //onAppear {
                 //    model.load()
                 //}
         }
+        
         .windowStyle(.hiddenTitleBar)
         //.windowBackgroundDragBehavior(.enabled)
         .commands {
@@ -42,6 +41,7 @@ struct macOS_Window_StylerApp: App {
                 AboutMenuButton()
             }
         }
+        
         
         
         Window("About The App", id: "about") {

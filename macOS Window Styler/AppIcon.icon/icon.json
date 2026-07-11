@@ -14,19 +14,7 @@
   },
   "groups" : [
     {
-      "layers" : [
-
-      ],
-      "shadow" : {
-        "kind" : "neutral",
-        "opacity" : 0.5
-      },
-      "translucency" : {
-        "enabled" : true,
-        "value" : 0.5
-      }
-    },
-    {
+      "blur-material" : 0.27,
       "layers" : [
         {
           "glass" : true,
@@ -40,7 +28,20 @@
               -93.82731226785131
             ]
           }
-        },
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.75
+      }
+    },
+    {
+      "blur-material" : 0.33,
+      "layers" : [
         {
           "image-name" : "_ 2.png",
           "name" : "_ 2",
@@ -52,8 +53,22 @@
               64.48268773214863
             ]
           }
-        },
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "blur-material" : 0.5,
+      "layers" : [
         {
+          "hidden" : false,
           "image-name" : "lower.png",
           "name" : "lower",
           "opacity" : 0.6,

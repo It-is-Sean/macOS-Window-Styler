@@ -8,6 +8,8 @@
 import SwiftUI
 import SwiftData
 
+import AppKit
+
 struct AboutView: View {
     private var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
@@ -18,12 +20,13 @@ struct AboutView: View {
     @State private var tilt: CGSize = .zero
     private let maxTiltDegrees: Double = 7
     
-    private let hoverGLowDelay: UInt64 = 250_000_000
+    private let hoverGLowDelay: UInt64 = 450_000_000
     var body: some View{
         HStack(alignment: .center, spacing: 4){
             Image(nsImage: NSApp.applicationIconImage)
                 .scaleEffect(isIconHovered ? 1.15 : 1.0)
                 .rotation3DEffect(
+                    
                     isIconHovered ? .degrees(Double(-tilt.height) * maxTiltDegrees) : .degrees(0),
                     axis: (x: 1, y: 0, z: 0),
                     anchor: .center,
@@ -50,6 +53,7 @@ struct AboutView: View {
                         tilt = CGSize(
                             width: (location.x/size.width) * 2 - 1, height: (location.y/size.height) * 2 - 1
                         )
+                        
                     case .ended:
                         tilt = .zero
                     }
@@ -63,10 +67,20 @@ struct AboutView: View {
                             guard !Task.isCancelled else {return}
                             await MainActor.run {
                                 isIconHovered = true
+                                NSHapticFeedbackManager.defaultPerformer.perform(
+                                    .alignment,
+                                    performanceTime: .now
+
+                                )
                             }
                         }
                     } else {
                         isIconHovered = false
+                        NSHapticFeedbackManager.defaultPerformer.perform(
+                            .alignment,
+                            performanceTime: .now
+
+                        )
                     }
                 }
             
